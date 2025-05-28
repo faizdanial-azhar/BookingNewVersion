@@ -1,6 +1,5 @@
 package BookingSystem;
 
-import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +8,7 @@ public class Booking {
 
     private Student student;
     private Facility facility;
-    private LocalDateTime dateTime;
+    private String date;
     private int duration;
     private int totalPrice;
     private String startTime;
@@ -18,15 +17,17 @@ public class Booking {
     String paymentStatus;
 
 
-    public Booking(Student student, Facility facility, LocalDate value, String startTime, String endTime, int duration, String paymentMethod,boolean isPaymentStatus) {
+
+    public Booking(Student student, Facility facility, String date, String startTime, String endTime, int duration, String paymentMethod, boolean isPaymentStatus) {
         this.paymentMethod = paymentMethod;
         this.student = student;
         this.facility = facility;
         this.startTime = startTime;
         this.endTime = endTime;
         this.duration = duration;
+        this.date = date;
 
-        if(isPaymentStatus) this.paymentStatus = isPaymentStatus ? "Completed" : "Incomplete";
+        this.paymentStatus = isPaymentStatus ? "Completed" : "Incompleted";
 
 
     }

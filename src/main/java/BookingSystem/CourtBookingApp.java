@@ -458,24 +458,34 @@ public class CourtBookingApp extends Application {
             // Update duration one more time to ensure it's correct
             String startTime = startTimeField.getText();
             String endTime = endTimeField.getText();
+            String date = datePicker.getValue().toString();
             int durationBooking = selectedFacility.getDuration();
             selectedFacility.setDuration(startTime, endTime);
             durationLabel.setText("Duration: " + durationBooking + " hour(s)");
 
 
-            Stage paymentConfirmation = paymentConfirmation(paymentStatus);
-            paymentConfirmation.show();
+            paymentStatus = paymentConfirmation();
 
-
-            Booking newBooking = new Booking(currentUser, selectedFacility, datePicker.getValue(), startTime, endTime, durationBooking, paymentMethod, paymentStatus);
+            Booking newBooking = new Booking(currentUser, selectedFacility, date, startTime, endTime, durationBooking, paymentMethod, paymentStatus);
             bookings.add(newBooking);
+            if (!paymentStatus) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Payment Cancelled");
+                alert.setHeaderText(null);
+                alert.setContentText("You have cancelled the payment.");
+                alert.showAndWait();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Booking Created");
+                alert.setHeaderText(null);
+                alert.setContentText("Redirecting to payment gateway...");
+                alert.showAndWait();
 
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Booking Created");
-            alert.setHeaderText(null);
-            alert.setContentText("Redirecting to payment gateway...");
-            alert.showAndWait();
+            }
+
+
+
             Stage receiptStage = receiptStage(newBooking);
             receiptStage.show();
             stage.close();
@@ -548,18 +558,43 @@ public class CourtBookingApp extends Application {
         regFacultyField.setText("");
     }
 
-    public Stage paymentConfirmation(boolean paymentStatus) {
+    public boolean paymentConfirmation() {
         Stage stage = new Stage();
-   Button payButton = new Button("Pay");
-   Button cancelButton = new Button("Cancel");
+        Button payButton = new Button("Pay");
+        Button cancelButton = new Button("Cancel");
+        Button submitButton = new Button("Submit");
 
-   payButton.setOnAction(e -> {
-       paymentStatus = true;
-   });
-   cancelButton.setOnAction(e -> {
-       paymentStatus = false;
-   });
-        return stage;
+
+        submitButton.setDisable(true);
+        payButton.setOnAction(e -> {
+            paymentStatus = true;
+            submitButton.setDisable(false);
+            payButton.setDisable(true);
+
+        });
+        cancelButton.setOnAction(e -> {
+            paymentStatus = false;
+            submitButton.setDisable(false);
+            cancelButton.setDisable(true);
+
+        }
+        );
+        submitButton.setOnAction(e -> {
+                stage.close();
+
+        });
+
+        HBox paymentStatusBox = new HBox();
+        paymentStatusBox.getChildren().addAll(payButton, cancelButton,submitButton);
+        Scene scene = new Scene(paymentStatusBox, 500, 400);
+        stage.setTitle("Payment Confirmation");
+        stage.setScene(scene);
+        stage.showAndWait();
+
+
+        return paymentStatus;
+
+
     }
 
     public Stage receiptStage(Booking booking) {
