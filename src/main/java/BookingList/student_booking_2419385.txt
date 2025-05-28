@@ -1,0 +1,14 @@
+Student Information:
+Matric No: 2419385
+Name: faiz danial
+Email: longlong@gmail.com
+Phone: 0191234
+Faculty: KICT
+
+---------------------------------------
+Booking Details:
+Student: faiz danial (2419385)
+Facility: Badminton Court
+Date & Time: 12 - 15
+Duration: 3 hour(s)
+Total Cost: RM 45.00
