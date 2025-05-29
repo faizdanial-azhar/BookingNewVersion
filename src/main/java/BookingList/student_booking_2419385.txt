@@ -30,3 +30,21 @@ Duration: 1 hour(s)
 Total Cost: RM 30.00
 Payment Method: Online Banking
 Payment Status: Completed
+---------------------------------------
+Booking Details:
+Student: faiz danial (2419385)
+Facility: Futsal Court
+Date & Time: 12 - 14
+Duration: 2 hour(s)
+Total Cost: RM 60.00
+Payment Method: Online Banking
+Payment Status: Incompleted
+---------------------------------------
+Booking Details:
+Student: faiz danial (2419385)
+Facility: Futsal Court
+Date & Time: 12 - 13
+Duration: 1 hour(s)
+Total Cost: RM 30.00
+Payment Method: Online Banking
+Payment Status: Incompleted

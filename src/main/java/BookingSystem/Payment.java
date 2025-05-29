@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Payment {
+public class Payment {//entah
     private Booking booking;
     private double amountPaid;
 
@@ -31,7 +31,6 @@ public class Payment {
                         isPaymentComplete());
     }
 
-
     public boolean writeBookingIntoFile(Student student, String filename) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(filename + student.getStudentId() + ".txt", true))) {
             bw.newLine();
@@ -39,7 +38,7 @@ public class Payment {
             bw.newLine();
             bw.write("Booking Details:");
             bw.newLine();
-            bw.write(booking.getBookingDetails());
+            bw.write(generateReceipt());
             return true;
         } catch (IOException e) {
             e.printStackTrace();

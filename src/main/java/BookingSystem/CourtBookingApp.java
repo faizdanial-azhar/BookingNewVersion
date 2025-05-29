@@ -1,6 +1,5 @@
 package BookingSystem;
 
-// CourtBookingApp.java
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -20,29 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourtBookingApp extends Application {
-    private TextField regMatricField, regNameField, regEmailField, regPhoneField, regFacultyField;
-    private PasswordField regPasswordField;
-    private List<Student> studentsList = new ArrayList<>();
-    private TextField loginMatricField;
-    private PasswordField loginPasswordField;
-    private ArrayList<Booking> bookings = new ArrayList<>();
-    private Student currentUser;
-    private StudentCredential manager = new StudentCredential();
-    private String studentBookingFile = "src/main/java/BookingList/student_booking_";
+    private TextField regMatricField, regNameField, regEmailField, regPhoneField, regFacultyField, loginMatricField;
+    private PasswordField regPasswordField, loginPasswordField;
+    private final Label selectedCourtLabel = new Label("Selected Facility: None");
+    private final List<Student> studentsList = new ArrayList<>();
+    private final ArrayList<Booking> bookings = new ArrayList<>();
+    private final List<Facility> facilities = new ArrayList<>();
+    private Student currentUser, student;
+    private final StudentCredential manager = new StudentCredential();
+    private final String studentBookingFile = "src/main/java/BookingList/student_booking_";
     private String paymentMethod;
     private boolean paymentStatus;
-
-
-    private List<Facility> facilities = new ArrayList<>();
     private Facility selectedFacility;
-
-    private Label selectedCourtLabel = new Label("Selected Facility: None");
-    private Student student;
-
 
     public static void main(String[] args) {
         launch(args);
     }
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -50,12 +43,10 @@ public class CourtBookingApp extends Application {
         showLoginStage(primaryStage);
     }
 
-    private void showLoginStage(Stage primaryStage) {
+    private void showLoginStage(Stage primaryStage) {//aznil
         primaryStage.setTitle("Student Login & Registration");
-
         // Create a TabPane
         TabPane tabPane = new TabPane();
-
         // --- Register Tab ---
         Tab registerTab = new Tab("Register");
         registerTab.setClosable(false);
@@ -162,7 +153,6 @@ public class CourtBookingApp extends Application {
             }
         });
 
-
         // Login button action
         loginBtn.setOnAction(e -> {
             String matric = loginMatricField.getText().trim();
@@ -171,24 +161,12 @@ public class CourtBookingApp extends Application {
             Student student = manager.loginStudent(matric, password);
             if (student != null) {
                 currentUser = student;
-
-                // need to fix   boolean writeSuccess = manager.writeStudentInfoToFile(student, studentInfoFile);
-
                 String successMessage = "Login successful! Welcome, " + student.getName();
-             /*   if (writeSuccess) {
-                    successMessage += "\nStudent information has been written to " + studentInfoFile;
-                } else {
-                    successMessage += "\nFailed to write student information to file.";
-                }
-
-              */
-
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Login Success");
                 alert.setHeaderText(null);
                 alert.setContentText(successMessage);
                 alert.showAndWait();
-
 
                 // Open booking page
                 try {
@@ -211,7 +189,7 @@ public class CourtBookingApp extends Application {
     }
 
 
-    private void mainMenuStage(Stage stage) {
+    private void mainMenuStage(Stage stage) {//faiz danial
 
         VBox menu = new VBox(10);
         Button makeBookingBtn = new Button("Make Booking");
@@ -235,10 +213,9 @@ public class CourtBookingApp extends Application {
         stage.show();
     }
 
-    private void bookingHistoryStage(Stage stage) {
+    private void bookingHistoryStage(Stage stage) {//amirin
         VBox historyView = new VBox(10);
         ListView<String> bookingList = new ListView<>();
-
 
         try (BufferedReader br = new BufferedReader(new FileReader(studentBookingFile + currentUser.getStudentId() + ".txt"))) {
             String line;
@@ -258,7 +235,6 @@ public class CourtBookingApp extends Application {
             if (!currentBooking.isEmpty()) {
                 bookingList.getItems().add(currentBooking.trim());
             }
-
             if (bookingList.getItems().isEmpty()) {
                 bookingList.getItems().add("No bookings found");
             }
@@ -277,13 +253,10 @@ public class CourtBookingApp extends Application {
         stage.show();
     }
 
-    private void facilitySelectionStage(Stage stage) {
-
+    private void facilitySelectionStage(Stage stage) {//aznil
 
         stage.setTitle("Facility Booking");
-
         initializeFacilities();
-
         BorderPane mainLayout = new BorderPane();
 
         Label titleLabel = new Label("ClickSport");
@@ -307,13 +280,11 @@ public class CourtBookingApp extends Application {
         Button bookBtn = new Button("Book");
 
         bookBtn.setOnAction(e -> {
-
             Stage bookingStage = bookingStage(new Stage());
             bookingStage.show();
             stage.close();
-
-
         });
+
         rootPane.getChildren().addAll(infoLabel, selectedCourtLabel, facilityListBox, bookBtn);
         mainLayout.setCenter(rootPane);
 
@@ -322,13 +293,13 @@ public class CourtBookingApp extends Application {
         stage.show();
     }
 
-    private void initializeFacilities() {
+    private void initializeFacilities() {//aznil
         facilities.clear();
         facilities.add(new BadmintonCourt());
         facilities.add(new FutsalCourt());
     }
 
-    private BorderPane createFacilityCard(Facility facility) {
+    private BorderPane createFacilityCard(Facility facility) {//aznil
         BorderPane cardPane = new BorderPane();
         cardPane.setPadding(new Insets(10));
         cardPane.setStyle("-fx-background-color: white; -fx-border-color: lightgray; -fx-border-width: 1;");
@@ -377,22 +348,15 @@ public class CourtBookingApp extends Application {
             alert.setContentText(facility.getFacilityName() + " selected!");
             alert.showAndWait();
             selectedCourtLabel.setText("Selected Facility: " + facility.getFacilityName());
-
-
         });
-
         infoBox.setOnMouseEntered(e -> infoBox.setStyle("-fx-background-color: #87CEFA;"));
         infoBox.setOnMouseExited(e -> infoBox.setStyle("-fx-background-color: #ADD8E6;"));
-
-
         cardPane.setCenter(infoBox);
-
-
         return cardPane;
     }
 
 
-    private Stage bookingStage(Stage stage) {
+    private Stage bookingStage(Stage stage) {//faiz danial
 
         // Create Time Selection components
         Label timeLabel = new Label("Select Time:");
@@ -474,7 +438,7 @@ public class CourtBookingApp extends Application {
                 alert.setHeaderText(null);
                 alert.setContentText("You have cancelled the payment.");
                 alert.showAndWait();
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Booking Created");
                 alert.setHeaderText(null);
@@ -483,7 +447,6 @@ public class CourtBookingApp extends Application {
 
 
             }
-
 
 
             Stage receiptStage = receiptStage(newBooking);
@@ -510,7 +473,7 @@ public class CourtBookingApp extends Application {
                 titleLabel,
                 priceLabel,
                 courtLabel,
-                durationLabel, totalPriceLabel
+                durationLabel, totalPriceLabel, onlineBankingButton
         );
 
         // Create layout - Date Selection Box (Top-Center)
@@ -524,7 +487,7 @@ public class CourtBookingApp extends Application {
 
         // Create layout - Button Box (Bottom-Center)
         HBox buttonBox = new HBox();
-        buttonBox.getChildren().addAll(onlineBankingButton, bookButton, cancelButton);
+        buttonBox.getChildren().addAll(bookButton, cancelButton);
 
         // Combine Time and Button boxes
         VBox centerBox = new VBox(10);
@@ -558,54 +521,76 @@ public class CourtBookingApp extends Application {
         regFacultyField.setText("");
     }
 
-    public boolean paymentConfirmation() {
+    public boolean paymentConfirmation() {//amirin
         Stage stage = new Stage();
+
+        // Create title label
+        Label titleLabel = new Label("Please confirm your payment");
+        titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        // Create buttons with consistent width
         Button payButton = new Button("Pay");
         Button cancelButton = new Button("Cancel");
         Button submitButton = new Button("Submit");
 
+        payButton.setPrefWidth(100);
+        cancelButton.setPrefWidth(100);
+        submitButton.setPrefWidth(100);
 
+        // Initially disable submit button until a choice is made
         submitButton.setDisable(true);
+
+        // Set button actions
         payButton.setOnAction(e -> {
             paymentStatus = true;
-            submitButton.setDisable(false);
+            cancelButton.setDisable(false);
             payButton.setDisable(true);
-
+            submitButton.setDisable(false);
         });
+
         cancelButton.setOnAction(e -> {
             paymentStatus = false;
-            submitButton.setDisable(false);
+            payButton.setDisable(false);
             cancelButton.setDisable(true);
-
-        }
-        );
-        submitButton.setOnAction(e -> {
-                stage.close();
-
+            submitButton.setDisable(false);
         });
 
-        HBox paymentStatusBox = new HBox();
-        paymentStatusBox.getChildren().addAll(payButton, cancelButton,submitButton);
-        Scene scene = new Scene(paymentStatusBox, 500, 400);
+        submitButton.setOnAction(e -> {
+            stage.close();
+        });
+
+        // Create button layout with spacing
+        HBox buttonBox = new HBox(15); // 15px spacing between buttons
+        buttonBox.setAlignment(Pos.CENTER);
+        buttonBox.setPadding(new Insets(20));
+        buttonBox.getChildren().addAll(payButton, cancelButton);
+
+        // Create main layout
+        VBox mainLayout = new VBox(20); // 20px spacing between elements
+        mainLayout.setAlignment(Pos.CENTER);
+        mainLayout.setPadding(new Insets(30));
+        mainLayout.getChildren().addAll(titleLabel, buttonBox, submitButton);
+
+        // Create scene and show stage
+        Scene scene = new Scene(mainLayout, 500, 300);
         stage.setTitle("Payment Confirmation");
         stage.setScene(scene);
         stage.showAndWait();
 
-
         return paymentStatus;
-
-
     }
 
-    public Stage receiptStage(Booking booking) {
+    public Stage receiptStage(Booking booking) {//entah
         Stage stage = new Stage();
 
-        Text text = new Text(booking.getBookingDetails());
+
         Payment payment = new Payment(booking);
+        Text text = new Text(payment.generateReceipt());
+
 
 
         VBox vbox = new VBox(10);
-        Scene scene = new Scene(vbox);
+        Scene scene = new Scene(vbox,500,200);
         vbox.getChildren().add(text);
 
         stage.setScene(scene);

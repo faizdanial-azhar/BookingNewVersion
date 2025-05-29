@@ -2,7 +2,7 @@ package BookingSystem;
 
 import java.io.*;
 
-public class StudentCredential {
+public class StudentCredential {//aznil
     private final String filename = "src/main/java/BookingSystem/student.txt";
 
     public boolean registerStudent(Student student) {

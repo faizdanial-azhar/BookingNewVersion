@@ -1,6 +1,6 @@
 package BookingSystem;
 
-public class FutsalCourt extends Facility {
+public class FutsalCourt extends Facility {//amirin
 private double ratePerHourFutsal;
     public FutsalCourt() {
         super("Futsal Court", 30.0);

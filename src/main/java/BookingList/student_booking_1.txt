@@ -167,3 +167,62 @@ Duration: 1 hour(s)
 Total Cost: RM 15.00
 Payment Method: Online Banking
 Payment Status: Completed
+---------------------------------------
+Booking Details:
+Student: 1 (1)
+Facility: Badminton Court
+Date & Time: 12 - 13
+Duration: 1 hour(s)
+Total Cost: RM 15.00
+Payment Method: Online Banking
+Payment Status: Completed
+---------------------------------------
+Booking Details:
+Student: 1 (1)
+Facility: Futsal Court
+Date & Time: 13 - 16
+Duration: 3 hour(s)
+Total Cost: RM 90.00
+Payment Method: Online Banking
+Payment Status: Incompleted
+---------------------------------------
+Booking Details:
+Student: 1 (1)
+Facility: Badminton Court
+Date & Time: 12 - 12
+Duration: 24 hour(s)
+Total Cost: RM 360.00
+Payment Method: null
+Payment Status: Incompleted
+---------------------------------------
+Booking Details:
+Student: 1 (1)
+Facility: Futsal Court
+Date & Time: 12 - 13
+Duration: 1 hour(s)
+Total Cost: RM 30.00
+Payment Method: null
+Payment Status: Incompleted
+---------------------------------------
+Booking Details:
+Student: 1 (1)
+Facility: Futsal Court
+Date & Time: 12 - 14
+Duration: 2 hour(s)
+Total Cost: RM 60.00
+Payment Method: null
+
+Amount Paid: RM 60.00
+Payment Status: Completed
+
+---------------------------------------
+Booking Details:
+Student: 1 (1)
+Facility: Futsal Court
+Date & Time: 12 - 13
+Duration: 1 hour(s)
+Total Cost: RM 30.00
+Payment Method: null
+
+Amount Paid: RM 30.00
+Payment Status: Completed
